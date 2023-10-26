@@ -20,7 +20,7 @@ pipeline{
     stage(buildimage){
       steps{
 
-        sh "echo 'building image' "
+        sh "echo 'starting image building' "
         sh " sudo docker build -t webapp ."
         sh "echo 'image built successfully' "
       }
