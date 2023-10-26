@@ -21,6 +21,8 @@ pipeline{
       steps{
         sh "echo 'building image' "
         sh " sudo docker build -t webapp ."
+        sh "echo 'image successfully built '"
+        sh "echo 'pushing image to registry ' "
       }
     }
     /*
