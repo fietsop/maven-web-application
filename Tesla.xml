@@ -1,0 +1,31 @@
+node{
+def mavenHome = tool name: 'maven3.9.6'
+	stage('clone'){
+	git "https://github.com/fietsop/maven-web-application"
+	}
+	stage('clone'){
+	sh "${mavenHome}/bin/mvn package"
+
+	}
+	stage('UploadingArtifacts'){}
+	stage('CodeQualityAnalysis'){}
+	stage('BuildingDockerImage'){}
+	stage('DeployingApplication'){}
+	stage('FinalProdDeployment'){
+	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://44.211.177.57:8080/')], contextPath: null, war: 'target/*war'
+	}
+	stage('EmailNotification'){}
+	stage('EmailNotification'){
+	sh "echo 'monitoring and observation and alertin'"
+	sh "echo 'APM in progress'"
+
+	}
+	stage('EmailNotification'){
+	sh "echo create email notification"
+	emailext body: '''The Build and Deployment status.
+
+Best Regard. ''', recipientProviders: [developers()], subject: 'Job Status', to: 'foryimalain87@gmail.com'
+	}
+
+
+}
